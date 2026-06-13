@@ -244,6 +244,90 @@ const questions = [
     options: ["80", "443", "22", "3389"],
     answer: 2,
     explanation: "SSH uses port 22 by default for encrypted remote connections."
+  },
+  {
+    category: "CRYPTOGRAPHY",
+    question: "What is the difference between encryption and hashing?",
+    options: ["They are the same", "Hashing is reversible, encryption is not", "Encryption is reversible, hashing is one-way", "Both are one-way"],
+    answer: 2,
+    explanation: "Encryption is two-way — you can decrypt it. Hashing is one-way — you cannot reverse it. Hashing is used for passwords."
+  },
+  {
+    category: "ATTACKS",
+    question: "What type of attack floods a server with traffic to crash it?",
+    options: ["SQL Injection", "Phishing", "Denial of Service", "Keylogging"],
+    answer: 2,
+    explanation: "DoS overwhelms a server with fake requests so real users can't connect."
+  },
+  {
+    category: "ATTACKS",
+    question: "An email pretending to be your bank asking for your password is called?",
+    options: ["Brute Force", "Phishing", "Spoofing", "Keylogging"],
+    answer: 1,
+    explanation: "Phishing tricks users into revealing credentials by pretending to be a trusted source."
+  },
+  {
+    category: "NETWORKING",
+    question: "What does HTTPS provide that HTTP does not?",
+    options: ["Faster speed", "Larger file uploads", "Encrypted communication using TLS", "Hides your IP"],
+    answer: 2,
+    explanation: "HTTPS encrypts data between browser and server using TLS. HTTP sends everything as plain text."
+  },
+  {
+    category: "TOOLS",
+    question: "What is Nmap used for?",
+    options: ["Cracking passwords", "Network scanning and port discovery", "Creating malware", "Encrypting files"],
+    answer: 1,
+    explanation: "Nmap scans networks to find open ports and running services. Used in almost every pentest."
+  },
+  {
+    category: "FUNDAMENTALS",
+    question: "What is the purpose of a VPN?",
+    options: ["Speed up internet", "Block ads", "Encrypt traffic and hide IP address", "Remove viruses"],
+    answer: 2,
+    explanation: "VPN creates an encrypted tunnel hiding your real IP and protecting your traffic."
+  },
+  {
+    category: "ATTACKS",
+    question: "Injecting ' OR '1'='1 into a login form is what type of attack?",
+    options: ["XSS", "Buffer Overflow", "SQL Injection", "Directory Traversal"],
+    answer: 2,
+    explanation: "SQL Injection manipulates database queries through unsanitized user input."
+  },
+  {
+    category: "LINUX",
+    question: "Which command finds files owned by a specific user in Linux?",
+    options: ["ls -owner", "find / -user bandit7", "grep -r bandit7", "locate --user"],
+    answer: 1,
+    explanation: "find / -user bandit7 searches filesystem for files owned by bandit7. Used in Bandit CTF!"
+  },
+  {
+    category: "CRYPTOGRAPHY",
+    question: "Which is an example of asymmetric encryption?",
+    options: ["AES", "RSA", "Blowfish", "DES"],
+    answer: 1,
+    explanation: "RSA uses a public/private key pair. AES, Blowfish and DES are all symmetric encryption."
+  },
+  {
+    category: "TOOLS",
+    question: "What does Wireshark do?",
+    options: ["Scans open ports", "Captures and analyzes network packets", "Cracks passwords", "Creates fake access points"],
+    answer: 1,
+    explanation: "Wireshark captures all network traffic and lets you inspect every packet in detail."
+  },
+  {
+    category: "FUNDAMENTALS",
+    question: "What is the difference between a vulnerability and an exploit?",
+    options: ["They mean the same thing", "A vulnerability is a weakness, an exploit takes advantage of it", "An exploit is a weakness", "Vulnerabilities are only in hardware"],
+    answer: 1,
+    explanation: "Vulnerability = the weakness. Exploit = the tool or code that attacks that weakness."
+  },
+  {
+    category: "NETWORKING",
+    question: "Which port does HTTP use by default?",
+    options: ["22", "443", "3389", "80"],
+    answer: 3,
+    explanation: "HTTP uses port 80. HTTPS uses port 443. SSH uses port 22. RDP uses port 3389."
   }
 ];
 
