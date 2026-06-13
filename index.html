@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CyberSec Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+    :root {
+        --bg: #070b10;
+        --surface: #0e1620;
+        --border: #1a2d42;
+        --cyan: #00d4ff;
+        --green: #00ff9d;
+        --red: #ff4d6d;
+        --yellow: #ffd166;
+        --text: #c9d8e8;
+        --muted: #4a6880;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    header {
+        text-align: center;
+        padding: 30px 0;
+    }
+    header h1 {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 32px;
+        color: var(--cyan);
+        letter-spacing: 5px;
+    }
+    header h1 span {
+        color: var(--green);
+    }
+    header p {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 16px;
+        letter-spacing: 2px;
+    }
+    #statsBar {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 16px;
+        width: 100%;
+        max-width: 680px;
+    }
+    .stat {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 14px;
+        display: flex;
+        flex-direction: column;
+    }
+    .stat small {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 10px;
+        color: var(--muted);
+        letter-spacing: 2px;
+    }
+    .stat strong {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 22px;
+        color: var(--cyan);
+    }
+    #quizCard {
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 16px;
+}
+
+#categoryTag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cyan);
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+#questionText {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #dce8f4;
+  margin-bottom: 20px;
+}
+
+#optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.option:hover {
+  border-color: var(--cyan);
+  background: rgba(0,212,255,0.05);
+}
+
+.option.correct {
+  border-color: var(--green);
+  background: rgba(0,255,157,0.08);
+  color: var(--green);
+}
+
+.option.wrong {
+  border-color: var(--red);
+  background: rgba(255,77,109,0.08);
+  color: var(--red);
+}
+
+#explanation {
+  margin-top: 16px;
+  padding: 14px;
+  border-left: 3px solid var(--cyan);
+  background: rgba(0,212,255,0.04);
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #92b8d4;
+  display: none;
+}
+
+#btnNext {
+  display: none;
+  margin-top: 16px;
+  width: 100%;
+  padding: 13px;
+  background: transparent;
+  border: 1px solid var(--cyan);
+  border-radius: 8px;
+  color: var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+
+#btnNext:hover {
+  background: var(--cyan);
+  color: #070b10;
+}
+
+#resultsPanel {
+  display: none;
+  text-align: center;
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 40px 28px;
+}
+
+</style>
+</head>
+<body>
+<header>
+    <h1>Cyber<span>Sec</span> Quiz</h1>
+    <p>// ethical hacking knowledge test</p>
+</header>
+
+<div id="statsBar">
+    <div class="stat">
+    <small>Question</small>
+    <strong id="statQ">1</strong>
+    </div>
+    <div class="stat">
+        <small>Correct</small>
+        <strong id="statCorrect">0</strong>
+    </div>
+    <div class="stat">
+        <small>Wrong</small>
+        <strong id="statWrong">0</strong>
+    </div>
+</div>
+
+<div id="quizCard">
+    <div id="categoryTag">Category</div>
+    <div id="questionText">Question goes here</div>
+    <div id="optionsContainer"></div>
+    <div id="explanation"></div>
+    <button id="btnNext">Next Question →</button>
+</div>
+
+<div id="resultsPanel">
+    <h2 id="resultScore">0/15</h2>
+    <p id="resultMessage"></p>
+    <button onclick="restartQuiz()">Play Again</button>
+</div>
+<script>
+
+const questions = [
+  {
+    category: "FUNDAMENTALS",
+    question: "What does CIA stand for in information security?",
+    options: ["Confidentiality, Integrity, Availability", "Central Intelligence Agency", "Cyber Intrusion Analysis", "Cryptography, Identity, Authentication"],
+    answer: 0,
+    explanation: "CIA Triad is the foundation of cybersecurity. Confidentiality, Integrity and Availability."
+  },
+  {
+    category: "LINUX",
+    question: "What command shows hidden files in Linux?",
+    options: ["ls", "ls -la", "cat", "find"],
+    answer: 1,
+    explanation: "ls -la shows all files including hidden ones that start with a dot."
+  },
+  {
+    category: "NETWORKING",
+    question: "What port does SSH use by default?",
+    options: ["80", "443", "22", "3389"],
+    answer: 2,
+    explanation: "SSH uses port 22 by default for encrypted remote connections."
+  }
+];
+
+let current = 0;
+let correct = 0;
+let wrong = 0;
+
+function loadQuestion() {
+  const q = questions[current];
+  document.getElementById('categoryTag').textContent = q.category;
+  document.getElementById('questionText').textContent = q.question;
+  document.getElementById('statQ').textContent = current + 1;
+  document.getElementById('explanation').style.display = 'none';
+  document.getElementById('btnNext').style.display = 'none';
+
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.addEventListener('click', () => selectAnswer(i));
+    container.appendChild(btn);
+  });
+}
+
+function selectAnswer(selected) {
+  const q = questions[current];
+  const options = document.querySelectorAll('.option');
+  options.forEach(btn => btn.disabled = true);
+  options[q.answer].classList.add('correct');
+
+  if (selected === q.answer) {
+    correct++;
+    document.getElementById('statCorrect').textContent = correct;
+  } else {
+    options[selected].classList.add('wrong');
+    wrong++;
+    document.getElementById('statWrong').textContent = wrong;
+  }
+
+  document.getElementById('explanation').textContent = q.explanation;
+  document.getElementById('explanation').style.display = 'block';
+  document.getElementById('btnNext').style.display = 'block';
+}
+
+document.getElementById('btnNext').addEventListener('click', () => {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    document.getElementById('quizCard').style.display = 'none';
+    document.getElementById('resultsPanel').style.display = 'block';
+    document.getElementById('resultScore').textContent = correct + '/' + questions.length;
+    document.getElementById('resultMessage').textContent = correct >= 2 ? 'Great job! 🎉' : 'Keep studying! 💪';
+  }
+});
+
+function restartQuiz() {
+  current = 0; correct = 0; wrong = 0;
+  document.getElementById('statCorrect').textContent = 0;
+  document.getElementById('statWrong').textContent = 0;
+  document.getElementById('resultsPanel').style.display = 'none';
+  document.getElementById('quizCard').style.display = 'block';
+  loadQuestion();
+}
+
+loadQuestion();
+
+</script>
+</body>
+</html>
